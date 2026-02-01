@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Product
 from .serializers import ProductSerializer
-
+from rest_framework import viewsets
 
 
 @api_view(['GET', 'POST'])
@@ -47,3 +47,8 @@ def product_delete(request, pk):
         return Response(status=404)
     product.delete()
     return Response(status=204)
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
